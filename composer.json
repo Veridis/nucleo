@@ -1,0 +1,22 @@
+{
+    "name": "veridis/nucleo",
+    "description": "simple programming language",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Nucleo\\": "src/"
+        }
+    },
+    "require": {
+        "sunrise/stream": "^1.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.3"
+    },
+    "authors": [
+        {
+            "name": "Makdessi Alex",
+            "email": "alex.makdessi@me.com"
+        }
+    ]
+}
