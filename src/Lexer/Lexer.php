@@ -10,16 +10,15 @@ class Lexer
     /** @var StreamInterface */
     private $stream;
 
-    /** @var Token[] */
-    private $tokens;
-
     public function __construct(StreamInterface $stream)
     {
         $this->stream = $stream;
-        $this->tokens = [];
     }
 
-    public function lex(): void
+    /**
+     * @return \Generator|Token[]
+     */
+    public function lex(): \Generator
     {
         $this->stream->rewind();
         while (!$this->stream->eof()) {
@@ -31,31 +30,23 @@ class Lexer
             if ($this->isWhiteSpace($currentChar)) {
                 continue;
             } elseif ('+' === $currentChar) {
-                $this->tokens[] = Token::plus();
+                yield Token::plus();
             } elseif ('-' === $currentChar) {
-                $this->tokens[] = Token::minus();
+                yield Token::minus();
             } elseif ('*' === $currentChar) {
-                $this->tokens[] = Token::multiply();
+                yield Token::multiply();
             } elseif ('/' === $currentChar) {
-                $this->tokens[] = Token::divide();
+                yield Token::divide();
             } elseif ('(' === $currentChar) {
-                $this->tokens[] = Token::leftParenthesis();
+                yield Token::leftParenthesis();
             } elseif (')' === $currentChar) {
-                $this->tokens[] = Token::rightParenthesis();
+                yield Token::rightParenthesis();
             } elseif ($this->isInt($currentChar)) {
-                $this->tokens[] = Token::int($this->scan($currentChar, '/^\d+$/'));
+                yield Token::int($this->scan($currentChar, '/^\d+$/'));
             } else {
                 throw new \Exception(sprintf('invalid char "%s"', $currentChar));
             }
         }
-    }
-
-    /**
-     * @return Token[]
-     */
-    public function getTokens(): array
-    {
-        return $this->tokens;
     }
 
     private function isWhiteSpace(string $currentChar): bool

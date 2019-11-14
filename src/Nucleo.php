@@ -21,9 +21,8 @@ class Nucleo
             }
 
             $lexer = new Lexer(StreamFactory::fromString($expression));
-            $lexer->lex();
 
-            echo sprintf("[%s]\n", implode(', ', $lexer->getTokens()));
+            echo sprintf("[%s]\n", implode(', ', iterator_to_array($lexer->lex())));
         }
     }
 }
