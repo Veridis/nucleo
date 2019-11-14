@@ -3,6 +3,7 @@
 namespace Nucleo;
 
 use Nucleo\Lexer\Lexer;
+use Nucleo\Parser\Parser;
 use Nucleo\Stream\StreamFactory;
 
 class Nucleo
@@ -21,8 +22,11 @@ class Nucleo
             }
 
             $lexer = new Lexer(StreamFactory::fromString($expression));
+            $parser = Parser::fromTokens($lexer->lex());
 
-            echo sprintf("[%s]\n", implode(', ', iterator_to_array($lexer->lex())));
+            $parser->parse();
+
+//            echo sprintf("[%s]\n", implode(', ', iterator_to_array($lexer->lex())));
         }
     }
 }
