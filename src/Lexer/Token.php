@@ -41,12 +41,12 @@ class Token
         return new self(TokenTypes::MINUS);
     }
 
-    public static function mult(): self
+    public static function multiply(): self
     {
         return new self(TokenTypes::MULT);
     }
 
-    public static function div(): self
+    public static function divide(): self
     {
         return new self(TokenTypes::DIV);
     }
